@@ -31,7 +31,7 @@ failure case:
 
 #### Solution
 
-This project uses `mongoDb. The tables will be automatically created on start with 3 sample users each with 3 accounts each as per random allocation.
+`This project uses node.js, express and mongoDb. The tables will be automatically created on start with 3 sample users each with 3 accounts each as per random allocation.
 
 Steps to run this project:
 
