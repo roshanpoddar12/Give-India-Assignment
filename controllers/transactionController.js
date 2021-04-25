@@ -16,7 +16,6 @@ exports.performTransaction =  async (req, res) => {
         const amount = transactionDetails.amount;
 
         if(String(fromAccount.user) === String(toAccount.user)){
-            console.log('mTCHED')
             throw new Error(TransactionErrors.SAME_ACCOUNT);
         }
         if(fromAccount.balanceAmount < amount){

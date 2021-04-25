@@ -1,0 +1,24 @@
+USER Api
+
+Method        Api                 Body                         Description
+
+GET          /api/v1/users/                                    Get all users
+POST         /api/v1/users/     {"name":"xyz",age:x}           Create a new users
+Get          /api/v1/users/:id                                 Get a particular users
+PATCH        /api/v1/users/:id                                 Update a particular users
+DELETE       /api/v1/users/:id                                 Delete a particular users     
+
+Account Api
+
+GET          /api/v1/account/                                   Get all account
+POST         /api/v1/account/     {"balanceAmount": "bal", 
+                                    "accountType": "type"}      Create a new account (:id = userId)
+
+GET         /api/v1/account/:id                                 Get a particular account(:id = accountId)
+DELETE       /api/v1/account/:id                                Delete a particular account (:id = accountId)    
+
+TRANSACTION Api
+
+POST        /api/v1/transaction/      {"fromAccountId":"accID",
+                                        "toAccountId":"accId",      Perform transaction and update the account details.
+                                        "amount":x}

@@ -32,7 +32,7 @@ failure case:
 #### Solution
 
 `This project uses node.js, express and mongoDb. The tables will be automatically created on start with 3 sample users each with 3 accounts each as per random allocation.
-
+For Api's please refer api.txt.
 Steps to run this project:
 
 1. Run `npm i` command

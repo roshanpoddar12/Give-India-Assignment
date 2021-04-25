@@ -27,7 +27,10 @@ app.use('/api/v1/transaction', transactionRouter);
 
 
 app.all('*', (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+  res.status(404).json({
+    status: 'error',
+    message: `Can't find ${req.originalUrl} on this server!`
+  });
 });
 
 

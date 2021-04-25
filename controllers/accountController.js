@@ -68,15 +68,37 @@ exports.createAccountForUser = async(req, res) => {
   }
 };
 
-exports.deleteAccount = (req, res) => {
+exports.deleteAccount = async(req, res) => {
+  try{
     Account.findOneAndRemove({_id: req.params.id})
-    .then((account) => {
-       if(!account) {           
-          res.status(404).send();        
-       }          
-       res.send(account);
+    .then(async(account) => {
+      if(account){
+        const user = await User.findById(account.user);
+        for( var i = 0; i < user.accounts.length; i++){ 
+          if (String(user.accounts[i])  === String(account._id)) { 
+            user.accounts.splice(i, 1); 
+              i--; 
+          }
+        } 
+        user.save();
+        res.send(account);
+      }else if(!account) {           
+        res.status(404).json({
+          status:'error',
+          message:"Account doesnot exist" 
+        });        
+     }
   }).catch((e) => {          
-       res.status(400).send(e);       
+       res.status(400).json({
+            status:'error',
+            message:"Account doesnot exist" 
+          });         
     });
+  }catch(err){
+    res.status(500).json({
+      status:'error',
+      message:err 
+    });
+  }
   
 };

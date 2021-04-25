@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Account = require('../models/accountModel');
 
 exports.getAllUsers = ( async (req, res) => {
   const users = await User.find();
@@ -66,15 +67,38 @@ exports.updateUser = (req, res) => {
     }
 });
 };
-exports.deleteUser = (req, res) => {
-    User.findOneAndRemove({_id: req.params.id})
-    .then((user) => {
-       if(!user) {           
-          res.status(404).send();        
-       }          
-       res.send(user);
-  }).catch((e) => {          
-       res.status(400).send(e);       
+exports.deleteUser = async(req, res) => {
+  try{
+    const user = await User.findById(req.params.id)
+  Account.deleteMany(
+    {
+      _id: {
+        $in: user.accounts
+      }
+    },
+    function(err, result) {
+      if (err) {
+        res.send(err);
+      } else {
+        User.findOneAndRemove({_id: req.params.id})
+        .then((user) => {
+          if(!user) {           
+              res.status(404).send();        
+          }          
+          res.send(user);
+        }).catch((e) => {          
+          res.status(400).send(e);       
+        });
+      }
+    }
+  );
+  }catch(err){
+    res.status(500).json({
+      status: 'error',
+      message: err
     });
+  }
+  
+    
   
 };

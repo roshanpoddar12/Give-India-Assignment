@@ -34,7 +34,6 @@ mongoose
   .then(async () => {
     console.log("Connected to the DB")
     let totalUsers = await User.find()
-    console.log(totalUsers)
      // Initializing users and accounts for test
      if (totalUsers.length === 0) {
       // insert new users for test
@@ -65,11 +64,8 @@ mongoose
                   balanceAmount: randomBalance,
                   accountType: randomAccountType
               });
-              console.log('account',account);
-              console.log('user',user)
               const filUser = await User.findById({_id: user._id});
               filUser.accounts.push(account);
-              console.log('filuser:',filUser);
               filUser.save();  
           }
           //await User.findByIdAndUpdate(user._id,filUser)
